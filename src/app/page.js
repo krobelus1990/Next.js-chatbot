@@ -5,7 +5,7 @@ import UserAction from "./components/molecules/UserAction.js";
 import Result from "./components/organisms/Result.js";
 import userAvatar from "../assets/UNYJK-180x180.png";
 import botAvatar from "../assets/photo_2024-03-26_01-54-28.jpg";
-import { getResponse } from "./api/route.js";
+import { getResponse } from "./api/openAI/route.js/index.js";
 
 const Home = () => {
   const [messages, setMessages] = useState([]);
