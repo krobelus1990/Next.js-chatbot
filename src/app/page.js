@@ -23,18 +23,21 @@ const Home = () => {
       apiKey: apiKey,
       dangerouslyAllowBrowser: true,
     });
-
+    const systemMessage = {
+      role: "system",
+      content: "From now on your name is Resolution",
+    };
     const userMessage = {
       role: "user",
       content: question,
-      avatar: {userAvatar},
+      avatar: { userAvatar },
     };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
 
     try {
       const completion = await openai.chat.completions.create({
         model: "gpt-4-turbo",
-        messages: [userMessage],
+        messages: [systemMessage, userMessage],
       });
       console.log(completion);
 
@@ -42,7 +45,7 @@ const Home = () => {
       const botMessage = {
         content: data,
         role: '"assistant"',
-        avatar: {botAvatar},
+        avatar: { botAvatar },
       };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     } catch (error) {
