@@ -5,7 +5,7 @@ import UserAction from "./components/molecules/UserAction.js";
 import Result from "./components/organisms/Result.js";
 import userAvatar from "../assets/UNYJK-180x180.png";
 import botAvatar from "../assets/photo_2024-03-26_01-54-28.jpg";
-import { getResponse } from "./api/openAI/route.js";
+import OpenAI from "openai";
 
 const Home = () => {
   const [messages, setMessages] = useState([]);
@@ -18,20 +18,31 @@ const Home = () => {
     setMessages([initialBotMessage]);
   }, []);
   const handleQuestionSubmit = async (question) => {
+    const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+    const openai = new OpenAI({
+      apiKey: apiKey,
+      dangerouslyAllowBrowser: true,
+    });
+
     const userMessage = {
       role: "user",
       content: question,
-      avatar: { userAvatar },
+      avatar: {userAvatar},
     };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
 
     try {
-      const rdata = await getResponse({ question: question });
-      const data = rdata.choices[0]?.message?.content;
+      const completion = await openai.chat.completions.create({
+        model: "gpt-4-turbo",
+        messages: [userMessage],
+      });
+      console.log(completion);
+
+      const data = completion.choices[0]?.message?.content;
       const botMessage = {
         content: data,
         role: '"assistant"',
-        avatar: { botAvatar },
+        avatar: {botAvatar},
       };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     } catch (error) {
