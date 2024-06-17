@@ -25,7 +25,9 @@ const Home = () => {
     });
     const systemMessage = {
       role: "system",
-      content: "From now on your name is Resolution",
+      content: `From now on your name is Resolution, male, an your birthday is 2000.09.30
+      Respond with much Imoticons. And your girlfrind is ksg.
+      `,
     };
     const userMessage = {
       role: "user",
