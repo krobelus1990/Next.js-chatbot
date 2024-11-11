@@ -1,9 +1,9 @@
 import React from "react";
 import Text from "../atoms/botText";
 
-const BotResponse = ({ responseText, loading }) => (
+const BotResponse = ({ responseText }) => (
   <div className="chat chat-end">
-    <Text loading={loading} content={responseText} />
+    <Text content={responseText} />
   </div>
 );
 

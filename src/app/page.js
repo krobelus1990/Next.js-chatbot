@@ -3,13 +3,10 @@
 import React, { useState, useEffect } from "react";
 import UserAction from "./components/molecules/UserAction.js";
 import Result from "./components/organisms/Result.js";
-import userAvatar from "../assets/UNYJK-180x180.png";
-import botAvatar from "../assets/photo_2024-03-26_01-54-28.jpg";
 import OpenAI from "openai";
 
 const Home = () => {
   const [messages, setMessages] = useState([]);
-  const [loadingMessageId, setLoadingMessageId] = useState(null);
 
   useEffect(() => {
     const initialBotMessage = {
@@ -38,11 +35,9 @@ const Home = () => {
     const loadingMessage = {
       role: "assistant",
       content: "loading-spinner",
-      id: Date.now(),
+      id: "loading",
     };
     setMessages((prevMessages) => [...prevMessages, loadingMessage]);
-
-    setLoadingMessageId(loadingMessage.id);
 
     try {
       const completion = await openai.chat.completions.create({
@@ -56,26 +51,23 @@ const Home = () => {
       };
       setMessages((prevMessages) => {
         return prevMessages.map((message) =>
-          message.id === loadingMessageId
-            ? { ...message, content: botMessage.content }
+          message.id === "loading"
+            ? { ...message, content: botMessage.content, id: "" }
             : message
         );
       });
-      setLoadingMessageId(null);
     } catch (error) {
       console.error("Error fetching response:", error);
       setMessages((prevMessages) => {
         return prevMessages.map((message) =>
-          message.id === loadingMessageId
+          message.id === "loading"
             ? { ...message, content: "Sorry, there was an error." }
             : message
         );
       });
-      setLoadingMessageId(null);
     }
   };
-  console.log(messages);
-  console.log(loadingMessageId);
+
   return (
     <div className=" w-full">
       <UserAction
@@ -86,7 +78,7 @@ const Home = () => {
       />
       <div className="flex justify-center w-full">
         <div className=" sm:mt-[200px] mt-[250px] mb-10 w-full max-w-[850px] px-2">
-          <Result loading={loadingMessageId} messages={messages} />
+          <Result messages={messages} />
         </div>
       </div>
     </div>
