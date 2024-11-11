@@ -8,7 +8,7 @@ const Question = ({ value, onChange, onKeyDown }) => {
       onKeyDown={onKeyDown}
       value={value}
       placeholder="Ask your question..."
-      className="input input-bordered w-[700px]"
+      className="input input-bordered w-full sm:w-[700px] bg-[#dcdcdb] text-black text-xl p-6"
     />
   );
 };

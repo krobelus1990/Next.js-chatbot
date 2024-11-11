@@ -11,10 +11,11 @@ const Background = () => {
             height: '100%',
             overflow: 'hidden',
             zIndex: -1,
-            backgroundColor:"rgb(9,6,27)"
+            backgroundColor:"#efefed"
         }}>
         </div>
     );
 };
 
 export default Background;
+

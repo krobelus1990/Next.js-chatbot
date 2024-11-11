@@ -4,13 +4,7 @@ import Title from "../atoms/Title";
 import Question from "../atoms/Question";
 import ResultButton from "../atoms/ResultButton";
 
-const UserAction = ({
-  titleText,
-  titleColor,
-  buttonText,
-  onKeyDown,
-  onButtonClick,
-}) => {
+const UserAction = ({ titleText, titleColor, buttonText, onButtonClick }) => {
   const [question, setQuestion] = useState("");
 
   const handleInputChange = (e) => {
@@ -29,9 +23,9 @@ const UserAction = ({
   };
 
   return (
-    <div className=" fixed w-full bg-[rgb(9,6,27)] z-20 p-7 top-0">
+    <div className=" fixed w-full bg-[#eee] z-20 py-7 top-0 px-2">
       <Title text={titleText} color={titleColor} />
-      <div className="flex justify-center items-center mt-12 gap-10">
+      <div className="flex justify-center sm:flex-row flex-col items-center mt-12 sm:gap-10 gap-4">
         <Question
           value={question}
           onKeyDown={handleSendPress}
