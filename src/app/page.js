@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import UserAction from "./components/molecules/UserAction.js";
 import Result from "./components/organisms/Result.js";
+import userAvatar from "../assets/UNYJK-180x180.png";
+import botAvatar from "../assets/photo_2024-03-26_01-54-28.jpg";
 import OpenAI from "openai";
 
 const Home = () => {
